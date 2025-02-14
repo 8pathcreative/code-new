@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Resources</title>
+    
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://rsms.me" crossorigin />
+    <link rel="preconnect" href="https://api.supabase.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    
+    <!-- Preload critical fonts -->
+    <link
+      rel="preload"
+      href="https://rsms.me/inter/font-files/Inter-roman.var.woff2?v=3.19"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="https://rsms.me/inter/font-files/Inter-italic.var.woff2?v=3.19"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+      fetchpriority="high"
+    />
+
+    <!-- Preload critical JavaScript bundles -->
+    <link rel="modulepreload" href="/src/main.tsx" fetchpriority="high" />
+    <link rel="modulepreload" href="/src/App.tsx" fetchpriority="high" />
+    <link rel="modulepreload" href="/src/lib/supabase.ts" fetchpriority="high" />
+    <link rel="modulepreload" href="/src/lib/auth.ts" fetchpriority="high" />
+    <link rel="modulepreload" href="/src/components/Header.tsx" fetchpriority="high" />
+
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/src/index.css" as="style" fetchpriority="high" />
+    <link rel="stylesheet" href="/src/index.css" />
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://rsms.me" />
+    <link rel="dns-prefetch" href="https://api.supabase.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- Meta tags for better SEO and performance -->
+    <meta name="description" content="A curated collection of the best resources for developers" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Early hints for HTTP/2 Push -->
+    <script type="module" src="/src/main.tsx" async></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and private routes
+Disallow: /admin/
+Disallow: /private/
+Disallow: /playground/
+
+# Sitemap
+Sitemap: https://coderesources.dev/sitemap.xml
