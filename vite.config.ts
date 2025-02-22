@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import viteCompression from 'vite-plugin-compression';
-import critical from 'rollup-plugin-critical';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
@@ -25,32 +24,6 @@ export default defineConfig({
     viteCompression({
       algorithm: 'brotliCompress',
       ext: '.br',
-    }),
-    critical({
-      criticalUrl: 'https://code-new-virid.vercel.app/',
-      criticalBase: 'dist',
-      criticalPages: [
-        { uri: '', template: 'index' },
-        { uri: 'about', template: 'index' },
-        { uri: 'contact', template: 'index' },
-        { uri: 'pricing', template: 'index' },
-         { uri: 'playground', template: 'index' },
-         { uri: 'advertise', template: 'index' },
-      ],
-      criticalConfig: {
-        inline: true,
-        extract: true,
-        dimensions: [
-          {
-            width: 375,
-            height: 565,
-          },
-          {
-            width: 1200,
-            height: 800,
-          },
-        ],
-      },
     }),
     VitePWA({
       registerType: 'autoUpdate',
@@ -103,20 +76,7 @@ export default defineConfig({
           'motion-vendor': ['framer-motion'],
           'icons-vendor': ['lucide-react']
         },
-        sourcemapExcludeSources: true
-      }
+      },
     },
-    cssMinify: true,
-    assetsInlineLimit: 4096,
-    chunkSizeWarningLimit: 1000,
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
-    exclude: ['@vite/client', '@vite/env'],
   },
 });
