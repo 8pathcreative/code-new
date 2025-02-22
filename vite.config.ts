@@ -1,9 +1,9 @@
-import path from "path";
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import viteCompression from 'vite-plugin-compression';
 import critical from 'rollup-plugin-critical';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
