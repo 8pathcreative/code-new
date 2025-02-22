@@ -13,7 +13,7 @@ import { Contact } from './pages/Contact';
 import { Legal } from './pages/Legal';
 import { ExampleV1 } from './pages/ExampleV1';
 import { ConnectionStatus } from './components/ConnectionStatus';
-
+import SnippetsPage from './pages/SnippetsPage';
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const isDark = useThemeStore((state) => state.isDark);
@@ -53,6 +53,8 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/legal" element={<Legal />} />
               <Route path="/example-v1" element={<ExampleV1 />} />
+              <Route path="/snippets" element={<SnippetsPage />} />
+
             </Routes>
           </main>
           <Footer />
