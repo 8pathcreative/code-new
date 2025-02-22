@@ -27,13 +27,15 @@ export default defineConfig({
       ext: '.br',
     }),
     critical({
-      criticalUrl: 'http://localhost:5173',
+      criticalUrl: 'https://code-new-virid.vercel.app/',
       criticalBase: 'dist',
       criticalPages: [
         { uri: '', template: 'index' },
         { uri: 'about', template: 'index' },
         { uri: 'contact', template: 'index' },
         { uri: 'pricing', template: 'index' },
+         { uri: 'playground', template: 'index' },
+         { uri: 'advertise', template: 'index' },
       ],
       criticalConfig: {
         inline: true,

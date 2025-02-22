@@ -5,23 +5,26 @@ import { useCategoriesStore } from '../lib/categories';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
+import Icon from './Icon';
 
-type ResourceCardProps = {
-  resource: Resource;
-};
+interface ResourceCardProps {
+  resource: {
+    title: string;
+    description: string;
+  };
+  category?: {
+    name: string;
+  };
+}
 
-export function ResourceCard({ resource }: ResourceCardProps) {
-  const Icon = Icons[resource.icon as keyof typeof Icons] || Icons.Link;
-  const { getById } = useCategoriesStore();
-  const category = getById(resource.category_id);
-
+export function ResourceCard({ resource, category }: ResourceCardProps) {
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/15 transition-colors">
-              <Icon className="w-6 h-6 text-primary" aria-hidden="true" />
+              <Icon name="example-icon" className="w-6 h-6 text-primary" />
             </div>
             <div>
               <h2 className="text-xl font-semibold leading-tight">{resource.title}</h2>
@@ -40,22 +43,9 @@ export function ResourceCard({ resource }: ResourceCardProps) {
         </CardDescription>
       </CardContent>
       <CardFooter className="pt-2 pb-4">
-        <Button
-          variant="ghost"
-          className="w-full gap-2 text-primary hover:text-primary hover:bg-primary/10 transition-colors"
-          asChild
-        >
-          <a 
-            href={resource.url} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center justify-center"
-          >
-            Visit Resource
-            <ExternalLink className="w-4 h-4 ml-1" aria-hidden="true" />
-          </a>
-        </Button>
       </CardFooter>
     </Card>
   );
 }
+
+export default ResourceCard;
