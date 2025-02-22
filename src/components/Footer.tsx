@@ -122,7 +122,7 @@ export function Footer() {
                 className="hover:text-primary"
               >
                 <a
-                  href="https://github.com"
+                  href="https://github.com/8pathcreative"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit our GitHub repository"
