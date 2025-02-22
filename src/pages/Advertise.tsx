@@ -7,9 +7,9 @@ export function Advertise() {
   return (
     <>
       <SEO
-        title="Advertise on Code Resources"
-        description="Reach millions of developers and designers. Promote your product or service on Code Resources."
-        keywords={['advertise', 'promotion', 'marketing', 'developer tools', 'reach developers']}
+        title="Advertise with Us"
+        description="Learn about advertising opportunities with our platform."
+        keywords={['advertising', 'marketing', 'business']}
       />
 
       <div className="container max-w-6xl py-24">
