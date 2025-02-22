@@ -6,9 +6,9 @@ import { ResourceCard } from '../components/ResourceCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ConnectionStatus } from '@/components/ConnectionStatus';
-import { SEO } from '@/components/SEO';
+import SEO from '../components/SEO';
 
-export function Home() {
+const Home: React.FC = () => {
   const { categories, fetchCategories } = useCategoriesStore();
   const { isConnected } = useConnectionStore();
   const [resources, setResources] = useState<Resource[]>([]);
@@ -161,4 +161,6 @@ export function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

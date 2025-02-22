@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { SEO } from '@/components/SEO';
-import { HeroSection } from './HeroSection';
-import { useDialog } from '../hooks/useDialog';
+import SEO from '@/components/SEO';
+import HeroSection from './HeroSection';
+import useDialog from '../hooks/useDialog';
 import { ButtonsShowcase } from '../components/ButtonsShowcase';
 import { CardsShowcase } from '../components/CardsShowcase';
 import { DialogShowcase } from '../components/DialogShowcase';
@@ -24,6 +24,7 @@ export function Playground() {
   const [snippets, setSnippets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { isOpen, openDialog, closeDialog } = useDialog();
 
   useEffect(() => {
     fetchSnippets();
