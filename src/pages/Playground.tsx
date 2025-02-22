@@ -47,6 +47,33 @@ export function PlaygroundSection() {
     <div className="container py-8">
       <div className="mt-16">
         <h1 className="text-4xl font-bold mb-8">UI Component Playground</h1>
+        <div className="bg-white rounded-lg shadow-md overflow-hidden flex">
+  {/* Image */}
+  <img
+    src="https://via.placeholder.com/150"
+    alt="Resource Image"
+    className="w-1/3 object-cover"
+  />
+  {/* Content */}
+  <div className="p-6 flex-1">
+    {/* Title */}
+    <h3 className="text-xl font-semibold mb-2">Resource Title</h3>
+    {/* Description */}
+    <p className="text-gray-600 mb-4">
+      This is a brief description of the resource. It provides some context or
+      details about what the resource offers.
+    </p>
+    {/* Button */}
+    <a
+      href="#"
+      className="inline-block px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
+    >
+      Read More
+    </a>
+  </div>
+</div>
+
+        
         <div className="space-y-12">
           <ButtonsShowcase />
           <CardsShowcase />
@@ -57,6 +84,62 @@ export function PlaygroundSection() {
     </div>
   );
 }
+
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://zaofsdlvcrjeukhngvpg.supabase.co';
+const supabaseKey = 'your-anon-key';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+async function fetchSnippets() {
+    let { data, error } = await supabase
+        .from('code_snippets')
+        .select('*');
+
+    if (error) {
+        console.error('Error fetching snippets:', error);
+        return;
+    }
+
+    populateSnippetList(data);
+}
+
+function populateSnippetList(snippets) {
+    const container = document.getElementById('snippet-list');
+    container.innerHTML = '';
+
+    snippets.forEach(snippet => {
+        const card = document.createElement('div');
+        card.className = 'bg-white shadow-md rounded-lg overflow-hidden';
+        card.innerHTML = `
+            <div class="p-4">
+                <h2 class="text-xl font-bold mb-2">${snippet.title}</h2>
+                <p class="text-gray-700 mb-4">${snippet.language}</p>
+                <pre class="bg-gray-200 p-2 rounded">${snippet.code}</pre>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+document.getElementById('add-snippet').addEventListener('click', async () => {
+    const title = prompt('Snippet Title:');
+    const language = prompt('Snippet Language:');
+    const code = prompt('Snippet Code:');
+
+    const { data, error } = await supabase
+        .from('code_snippets')
+        .insert([{ title, language, code }]);
+
+    if (error) {
+        console.error('Error adding snippet:', error);
+        return;
+    }
+
+    fetchSnippets();
+});
+
+fetchSnippets();
 
 // filepath: /Users/neilhumphrey/Desktop/code-new/src/hooks/useDialog.ts
 import { useState, useCallback } from 'react';
@@ -76,3 +159,4 @@ export function useDialog(initialState = false) {
     setIsOpen
   };
 }
+
