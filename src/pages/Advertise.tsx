@@ -9,7 +9,6 @@ export function Advertise() {
       <SEO
         title="Advertise with Us"
         description="Learn about advertising opportunities with our platform."
-        keywords={['advertising', 'marketing', 'business']}
       />
 
       <div className="container max-w-6xl py-24">

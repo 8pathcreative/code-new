@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { supabase } from './lib/supabase';
@@ -14,6 +14,13 @@ import { Legal } from './pages/Legal';
 import { ExampleV1 } from './pages/ExampleV1';
 import { ConnectionStatus } from './components/ConnectionStatus';
 import SnippetsPage from './pages/SnippetsPage';
+import { Search } from 'lucide-react';
+import { useCategoriesStore } from '@/lib/categories';
+import { ResourceCard } from './components/ResourceCard';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { SEO } from './components/SEO';
+
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const isDark = useThemeStore((state) => state.isDark);
