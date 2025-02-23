@@ -3,7 +3,7 @@ import { Mail } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 
-export function Advertise() {
+const Advertise: React.FC = () => {
   return (
     <>
       <SEO
@@ -114,3 +114,5 @@ export function Advertise() {
     </>
   );
 }
+
+export default Advertise;
