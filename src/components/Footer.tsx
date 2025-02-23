@@ -102,14 +102,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Branding and Description */}
           <div className="space-y-4">
-            <h2 className="text-lg font-bold">
+            <h3 className="text-lg font-bold">
               <Link
                 to="/"
                 className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"
               >
-                Code Resources
+                Code Tutorials
               </Link>
-            </h2>
+            </h3>
             <p className="text-sm text-muted-foreground">
               A curated collection of the best resources for designers and developers.
               Updated regularly with new content.
@@ -151,7 +151,7 @@ export function Footer() {
 
            {/* Company Links */}
            <nav className="space-y-4" aria-label="Company">
-            <h2 className="text-sm font-semibold">Company</h2>
+            <h3 className="text-sm font-semibold">Company</h3>
             <ul className="grid gap-2">
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
@@ -173,7 +173,7 @@ export function Footer() {
 
           {/* Legal Links */}
           <nav className="space-y-4" aria-label="Legal">
-            <h2 className="text-sm font-semibold">Legal</h2>
+            <h3 className="text-sm font-semibold">Legal</h3>
             <ul className="grid gap-2">
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
