@@ -1,4 +1,4 @@
-import { Resource } from './supabase';
+import { Resource } from './types';
 import { useCategoriesStore } from './categories';
 
 export function searchResources(resources: Resource[], query: string, categorySlug?: string) {
@@ -25,6 +25,14 @@ export function searchResources(resources: Resource[], query: string, categorySl
   });
 }
 
+const searchResources = (resources: Resource[], query: string): Resource[] => {
+  return resources.filter(resource =>
+    resource.title.includes(query) ||
+    resource.description.includes(query) ||
+    resource.tags.some(tag => tag.includes(query)) // Access the tags property
+  );
+};
+
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number
@@ -40,4 +48,13 @@ export function debounce<T extends (...args: any[]) => any>(
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
+}
+
+// filepath: /Users/neilhumphrey/Desktop/code-new/src/types.ts
+export interface Resource {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[]; // Add the tags property
+  // other properties...
 }
