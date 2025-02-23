@@ -11,8 +11,8 @@ export default defineConfig({
       minify: true,
       inject: {
         data: {
-          title: 'Code Resources',
-          description: 'A curated collection of the best resources for developers',
+          title: 'Code Tutorials: Tools, Components, and Best Practices for Modern Web Development',
+          description: 'Empower your design and development workflow with our comprehensive tutorial guide. Explore reusable components, code snippets, and best practices for Tailwind CSS, React, Supabase, and Vite. Perfect for designers and developers building modern web applications.',
         },
       },
     }),

@@ -10,20 +10,20 @@ export interface SEOConfig {
 }
 
 export const defaultSEOConfig: SEOConfig = {
-  title: 'Code Resources - Best Resources for Developers',
+  title: 'Code Tutorials: Tools, Components, and Best Practices for Modern Web Development',
   description: 'A curated collection of the best resources for designers and developers. Find tutorials, tools, and learning materials to enhance your skills.',
   image: '/images/og-image.svg',
   type: 'website',
   schema: {
     type: 'WebSite',
     data: {
-      name: 'Code Resources',
-      url: 'https://coderesources.dev',
+      name: 'Code Tutorials',
+      url: 'https://codetutorials.io',
       potentialAction: {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://coderesources.dev/search?q={search_term_string}'
+          urlTemplate: 'https://codetutorials.io/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -36,9 +36,9 @@ export function generateSEOConfig(config: Partial<SEOConfig> = {}): SEOConfig {
     ...defaultSEOConfig,
     ...config,
     title: config.title 
-      ? config.title.includes('Code Resources') 
+      ? config.title.includes('Code Tutorials') 
         ? config.title 
-        : `${config.title} | Code Resources`
+        : `${config.title} | Code Tutorials`
       : defaultSEOConfig.title,
   };
 }
