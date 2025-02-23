@@ -25,14 +25,6 @@ export function searchResources(resources: Resource[], query: string, categorySl
   });
 }
 
-const searchResources = (resources: Resource[], query: string): Resource[] => {
-  return resources.filter(resource =>
-    resource.title.includes(query) ||
-    resource.description.includes(query) ||
-    resource.tags.some(tag => tag.includes(query)) // Access the tags property
-  );
-};
-
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number
@@ -57,4 +49,19 @@ export interface Resource {
   description: string;
   tags: string[]; // Add the tags property
   // other properties...
+}
+
+// filepath: /Users/neilhumphrey/Desktop/code-new/src/lib/search.ts
+import { Resource } from '../types';
+
+export function searchResources(resources: Resource[], query: string): Resource[] {
+  return resources.filter(resource => {
+    const searchableText = [
+      resource.title,
+      resource.description,
+      resource.tags?.join(' ') || ''
+    ].join(' ').toLowerCase();
+
+    return searchableText.includes(query.toLowerCase());
+  });
 }
