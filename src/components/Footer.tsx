@@ -149,23 +149,23 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Company Links */}
-          <nav className="space-y-4" aria-label="Company">
+           {/* Company Links */}
+           <nav className="space-y-4" aria-label="Company">
             <h2 className="text-sm font-semibold">Company</h2>
             <ul className="grid gap-2">
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
-                  <Link to="/about">About</Link>
+                  <Link to="/about" data-link-id="about">About</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
-                  <Link to="/contact">Contact</Link>
+                  <Link to="/contact" data-link-id="contact">Contact</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
-                  <Link to="/pricing">Pricing</Link>
+                  <Link to="/pricing" data-link-id="pricing">Pricing</Link>
                 </Button>
               </li>
             </ul>
@@ -177,17 +177,17 @@ export function Footer() {
             <ul className="grid gap-2">
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
-                  <Link to="/legal">Terms of Service</Link>
+                  <Link to="/legal" data-link-id="terms-of-service">Terms of Service</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
-                  <Link to="/legal">Privacy Policy</Link>
+                  <Link to="/legal" data-link-id="privacy-policy">Privacy Policy</Link>
                 </Button>
               </li>
               <li>
                 <Button variant="link" asChild className="h-auto p-0 justify-start">
-                  <Link to="/legal">Cookie Policy</Link>
+                  <Link to="/legal" data-link-id="cookie-policy">Cookie Policy</Link>
                 </Button>
               </li>
             </ul>
@@ -197,7 +197,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-12 border-t pt-8">
           <p className="text-center text-sm text-muted-foreground">
-            &copy; {currentYear} Code Resources. All rights reserved.
+            &copy; {currentYear} Code Tutorials. All rights reserved.
           </p>
         </div>
       </nav>
