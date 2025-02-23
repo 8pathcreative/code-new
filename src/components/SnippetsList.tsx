@@ -1,37 +1,30 @@
 // src/components/Snippets/SnippetsList.tsx
 import React from 'react';
-import { useSupabaseQuery } from '@/hooks/useSupabase';
 import { SnippetCard } from './SnippetCard';
-import { Skeleton } from '@/components/ui/skeleton';
-import type { Snippet } from '@/types';
 
-export const SnippetsList: React.FC = () => {
-  const { data: snippets, loading, error } = useSupabaseQuery<Snippet>(
-    'code_snippets',
-    {
-      order: { created_at: 'desc' }
-    }
-  );
+interface Snippet {
+  id: string;
+  title: string;
+  code: string;
+  language: string;
+  created_at: string;
+}
 
-  if (error) {
-    return (
-      <div className="p-4 text-red-500">
-        Error loading snippets: {error.message}
-      </div>
-    );
+interface SnippetsListProps {
+  snippets: Snippet[];
+  loading: boolean;
+}
+
+export const SnippetsList: React.FC<SnippetsListProps> = ({ snippets, loading }) => {
+  if (loading) {
+    return <div>Loading snippets...</div>;
   }
 
   return (
     <div className="space-y-4">
-      {loading ? (
-        Array.from({ length: 3 }).map((_, i) => (
-          <Skeleton key={i} className="h-32 w-full rounded-lg" />
-        ))
-      ) : (
-        snippets.map((snippet) => (
-          <SnippetCard key={snippet.id} snippet={snippet} />
-        ))
-      )}
+      {snippets.map((snippet) => (
+        <SnippetCard key={snippet.id} snippet={snippet} />
+      ))}
     </div>
   );
 };
