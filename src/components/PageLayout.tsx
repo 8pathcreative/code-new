@@ -1,30 +1,28 @@
+// src/components/Layout/PageLayout.tsx
 import React from 'react';
-import { Header } from '../Header';
-import { Footer } from '../Footer';
-import { Toaster } from 'react-hot-toast';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { useThemeStore } from '@/lib/theme';
 
 interface PageLayoutProps {
   children: React.ReactNode;
-  className?: string;
 }
 
-export const PageLayout: React.FC<PageLayoutProps> = ({ 
-  children, 
-  className = '' 
-}) => {
+const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   const isDark = useThemeStore((state) => state.isDark);
-  
+
   return (
     <div 
-      className={`${isDark ? 'dark' : ''} min-h-screen flex flex-col bg-background`}
+      className={`${isDark ? 'dark' : ''} min-h-screen flex flex-col`}
       data-theme={isDark ? 'dark' : 'light'}
     >
       <Header />
-      <main className={`flex-1 ${className}`}>
+      <main className="flex-grow">
         {children}
       </main>
       <Footer />
-      <Toaster position="top-right" />
     </div>
   );
 };
+
+export default PageLayout;
