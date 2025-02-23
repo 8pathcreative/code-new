@@ -1,138 +1,54 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useAuthStore } from '../lib/auth';
-import { useThemeStore } from '../lib/theme';
-import { AuthModal } from './AuthModal';
-import { Button } from '@/components/ui/button';
+// src/components/ui/button.tsx
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const location = useLocation();
-  const user = useAuthStore((state) => state.user);
-  const { isDark, toggleTheme } = useThemeStore();
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "underline-offset-4 hover:underline text-primary"
+      },
+      size: {
+        default: "h-10 py-2 px-4",
+        sm: "h-9 px-3 rounded-md",
+        lg: "h-11 px-8 rounded-md",
+        icon: "h-10 w-10"
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default"
+    }
+  }
+)
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Advertise', href: '/advertise' },
-    { name: 'Playground', href: '/playground' },
-  ];
-
-  return (
-    <div className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container h-16 flex items-center" aria-label="Main navigation">
-        <div className="flex items-center justify-between w-full">
-          <Link
-            to="/"
-            className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"
-          >
-            Code Resources
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-4">
-            {navigation.map((item) => (
-              <Button
-                key={item.name}
-                variant={location.pathname === item.href ? 'default' : 'ghost'}
-                className="text-sm"
-                asChild
-              >
-                <Link to={item.href}>{item.name}</Link>
-              </Button>
-            ))}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ml-2"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            {user ? (
-              <Button
-                variant="ghost"
-                onClick={() => setIsAuthModalOpen(true)}
-                className="text-sm"
-              >
-                Account
-              </Button>
-            ) : (
-              <Button onClick={() => setIsAuthModalOpen(true)}>Sign In</Button>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex items-center space-x-4 md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background border-b md:hidden">
-            <div className="container py-4 space-y-2">
-              {navigation.map((item) => (
-                <Button
-                  key={item.name}
-                  variant={location.pathname === item.href ? 'default' : 'ghost'}
-                  className="w-full justify-start"
-                  asChild
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Link to={item.href}>{item.name}</Link>
-                </Button>
-              ))}
-              {user ? (
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start"
-                  onClick={() => {
-                    setIsAuthModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Account
-                </Button>
-              ) : (
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    setIsAuthModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Sign In
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
-      </nav>
-
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-    </div>
-  );
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
 }
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
+
+export { Button, buttonVariants }
