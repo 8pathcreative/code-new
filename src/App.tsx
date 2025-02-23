@@ -6,7 +6,7 @@ import { useAuthStore } from './lib/auth';
 import { useThemeStore } from './lib/theme';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { Home } from './pages/Home';
+import Home from './pages/Home';
 import { About } from './pages/About';
 import { Pricing } from './pages/Pricing';
 import { Contact } from './pages/Contact';
