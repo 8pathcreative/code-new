@@ -11,10 +11,11 @@ import { About } from './pages/About';
 import { Pricing } from './pages/Pricing';
 import { Contact } from './pages/Contact';
 import { Legal } from './pages/Legal';
-import { ExampleV1 } from './pages/ExampleV1';
 import { ConnectionStatus } from './components/ConnectionStatus';
 import SnippetsPage from './pages/SnippetsPage';
 import Advertise from './pages/Advertise';
+
+const ExampleV1 = React.lazy(() => import('./pages/ExampleV1'));
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
@@ -54,7 +55,7 @@ function App() {
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/legal" element={<Legal />} />
-              <Route path="/example-v1" element={<ExampleV1 />} />
+              <Route path="/example-v1" element={<React.Suspense fallback={<div>Loading...</div>}><ExampleV1 /></React.Suspense>} />
               <Route path="/snippets" element={<SnippetsPage />} />
               <Route path="/advertise" element={<Advertise />} />
             </Routes>
