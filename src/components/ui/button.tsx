@@ -25,6 +25,9 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 33e2b35 (d)
+=======
 >>>>>>> parent of 33e2b35 (d)
 =======
 >>>>>>> parent of 33e2b35 (d)
@@ -66,7 +69,11 @@ Button.displayName = "Button"
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { Button, buttonVariants }
+=======
+export { Button, buttonVariants };
+>>>>>>> parent of 33e2b35 (d)
 =======
 export { Button, buttonVariants };
 >>>>>>> parent of 33e2b35 (d)
