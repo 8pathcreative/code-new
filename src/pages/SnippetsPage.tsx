@@ -1,6 +1,6 @@
 // src/pages/SnippetsPage.tsx
 import React from 'react';
-import { SnippetsList } from '@/components/Snippets/SnippetsList';
+import { SnippetsList } from '../components/Snippets/SnippetsList';
 
 const SnippetsPage = () => {
   return (

@@ -1,6 +1,26 @@
 // src/components/Snippets/SnippetsList.tsx
 import React from 'react';
-import { SnippetCard } from './SnippetCard';
+
+interface SnippetCardProps {
+  snippet: {
+    id: string;
+    title: string;
+    code: string;
+    language: string;
+    created_at: string;
+  };
+}
+
+export const SnippetCard: React.FC<SnippetCardProps> = ({ snippet }) => {
+  return (
+    <div className="snippet-card">
+      <h2>{snippet.title}</h2>
+      <pre>{snippet.code}</pre>
+      <p>{snippet.language}</p>
+      <p>{snippet.created_at}</p>
+    </div>
+  );
+};
 
 interface Snippet {
   id: string;
