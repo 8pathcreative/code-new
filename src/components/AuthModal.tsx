@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { signIn, signUp, signOut, useAuthStore } from '@/lib/auth';
 import { toast } from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,6 +10,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { useAuth } from '@/contexts/AuthContext';
 
 type AuthModalProps = {
   isOpen: boolean;
@@ -22,7 +22,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const user = useAuthStore((state) => state.user);
+  const { user, signIn, signUp, signOut } = useAuth();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

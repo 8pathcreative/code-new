@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useAuthStore } from '@/lib/auth';
 import { useThemeStore } from '@/lib/theme';
-import { AuthModal } from '@/AuthModal';
+import { AuthModal } from "@/components/AuthModal";
 import { Button } from '@/components/ui/button';
 
 export function Header() {

@@ -1,16 +1,19 @@
 // src/App.tsx
+import { HelmetProvider } from 'react-helmet-async';
 import { AppProvider } from './providers/AppProviders';
-import PageLayout from '@/src/components/PageLayout';
+import PageLayout from "@/components/PageLayout";
 import AppRoutes from './routes'; // We'll create this next
 import React from 'react';
 
 function App() {
   return (
-    <AppProvider>
-      <PageLayout>
-        <AppRoutes />
-      </PageLayout>
-    </AppProvider>
+    <HelmetProvider>
+      <AppProvider>
+        <PageLayout>
+          <AppRoutes />
+        </PageLayout>
+      </AppProvider>
+    </HelmetProvider>
   );
 }
 

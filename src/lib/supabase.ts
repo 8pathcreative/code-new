@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 import { create } from 'zustand';
 
 // Get environment variables
@@ -18,7 +19,7 @@ export const useConnectionStore = create<ConnectionStore>((set) => ({
 
 // Initialize Supabase client
 export const supabase = createClient(
-  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseUrl || 'https://zaofsdlvcrjeukhngvpg.supabase.co',
   supabaseKey || 'placeholder-key',
   {
     auth: {
@@ -44,3 +45,11 @@ export type Resource = {
   category_id: string;
   icon: string;
 };
+
+// Browser client function for SSR compatibility
+export function createClient() {
+  return createBrowserClient(
+    import.meta.env.VITE_SUPABASE_URL || '',
+    import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+  );
+}
