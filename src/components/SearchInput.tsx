@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { debounce } from '@/lib/search';
+import { Input } from '../components/ui/input';
+import { debounce } from '../lib/search';
 
 interface SearchInputProps {
   onSearch: (query: string) => void;

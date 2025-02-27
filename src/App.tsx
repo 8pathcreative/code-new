@@ -1,7 +1,8 @@
 // src/App.tsx
-import { AppProvider } from './providers/AppProvider';
-import PageLayout from '@/components/Layout/PageLayout';
+import { AppProvider } from './providers/AppProviders';
+import PageLayout from '/src/components/PageLayout';
 import AppRoutes from './routes'; // We'll create this next
+import React from 'react';
 
 function App() {
   return (
