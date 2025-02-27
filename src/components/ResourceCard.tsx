@@ -3,22 +3,23 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
 import Icon from './Icon';
+import { CategoryBadge } from '@/components/CategoryBadge';
 
 interface ResourceCardProps {
   resource: {
     title: string;
     description: string;
     url?: string;
-  };
-  category?: {
-    name: string;
-    id?: string;
+    categories?: {
+      name: string;
+      id?: string;
+    }[];
   };
   onClick?: () => void;
 }
 
-function ResourceCard({ resource, category, onClick }: ResourceCardProps) {
-  const { title, description, url } = resource;
+function ResourceCard({ resource, onClick }: ResourceCardProps) {
+  const { title, description, url, categories } = resource;
   
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
@@ -32,11 +33,14 @@ function ResourceCard({ resource, category, onClick }: ResourceCardProps) {
               <h2 className="text-xl font-semibold leading-tight">{title}</h2>
             </div>
           </div>
-          {category && (
-            <span className="inline-flex items-center rounded-full bg-primary/15 px-2.5 py-0.5 text-xs font-semibold text-primary">
-              {category.name}
-            </span>
-          )}
+          <div className="mt-2 space-x-2">
+            {categories?.map(category => (
+              <CategoryBadge 
+                key={category.id} 
+                category={category}
+              />
+            ))}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="pb-6">
