@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, MessageSquare, Send } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { SEO } from '../components/SEO';
-import { supabase } from '../lib/supabase';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { SEO } from '@/components/SEO';
+import { supabase } from '@/lib/supabase';
 import { toast } from 'react-hot-toast';
 
 export function Contact() {

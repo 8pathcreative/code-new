@@ -1,6 +1,5 @@
 import React from 'react';
-import { SEO } from 'components/SEO';
-
+import { SEO } from '@/components/SEO';
 const people = [
   {
     name: 'Michael Foster',
