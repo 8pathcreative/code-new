@@ -31,10 +31,6 @@ export const defaultSEOConfig: SEOConfig = {
   }
 };
 
-export interface SchemaOrgProps {
-  type: 'WebSite' | 'Organization' | 'Article' | 'Product' | 'BreadcrumbList';
-  data: Record<string, any>;
-}
 
 export function generateSEOConfig(config: Partial<SEOConfig> = {}): SEOConfig {
   return {

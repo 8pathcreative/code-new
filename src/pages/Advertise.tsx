@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Mail } from 'lucide-react';
-import { SEO } from '@/components/SEO';
-import { Button } from '@/components/ui/button';
+import { SEO } from '../components/SEO';
+import { Button } from '../components/ui/button';
 
 const Advertise: React.FC = () => {
   return (

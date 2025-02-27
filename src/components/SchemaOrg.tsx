@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet-async';
  * @property {Record<string, any>} data
  *   The data associated with the schema.org entity.
  */
-interface SchemaOrgProps {
+export interface SchemaOrgProps {
   type: 'WebSite' | 'Organization' | 'Article' | 'Product' | 'BreadcrumbList';
   data: Record<string, any>;
 }
