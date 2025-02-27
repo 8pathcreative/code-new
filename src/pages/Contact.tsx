@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, MessageSquare, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { SEO } from '@/components/SEO';
-import { supabase } from '@/lib/supabase';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { SEO } from '../components/SEO';
+import { supabase } from '../lib/supabase';
 import { toast } from 'react-hot-toast';
 
 export function Contact() {
@@ -39,7 +39,6 @@ export function Contact() {
       <SEO
         title="Contact Us"
         description="Get in touch with the Code Resources team. We'd love to hear from you!"
-        keywords={['contact', 'support', 'feedback', 'help', 'questions']}
       />
 
       <div className="container max-w-6xl py-24">
