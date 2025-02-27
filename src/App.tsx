@@ -1,12 +1,11 @@
 // src/App.tsx
+import { AuthProvider } from '@/contexts/AuthContext';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppProvider } from './providers/AppProviders';
-import PageLayout from "@/components/PageLayout";
-import AppRoutes from './routes'; // We'll create this next
-import React from 'react';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { Toaster } from 'react-hot-toast';
 import { BrowserRouter } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import PageLayout from "@/components/PageLayout";
+import AppRoutes from './routes';
 
 function App() {
   return (
