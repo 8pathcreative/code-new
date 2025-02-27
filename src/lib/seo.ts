@@ -9,6 +9,7 @@ export interface SEOConfig {
   schema?: SchemaOrgProps;
 }
 
+
 export const defaultSEOConfig: SEOConfig = {
   title: 'Code Tutorials: Tools, Components, and Best Practices for Modern Web Development',
   description: 'A curated collection of the best resources for designers and developers. Find tutorials, tools, and learning materials to enhance your skills.',
