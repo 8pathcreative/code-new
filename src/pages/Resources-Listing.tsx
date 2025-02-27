@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
-import { MegaMenu } from '@/components/Snippets/Resource-Components/MegaMenu-Component';
-import { ResourceCard, Resource } from '@/components/Resources/ResourceCard';
+import { MegaMenu } from '@/components/Snippets/Resource-Components/MegaMenuComponent';
+import { ResourceCard, Resource } from 'src/components/ResourceCard_2';
 import { Input } from '@/components/ui/input';
 import {
   Select,

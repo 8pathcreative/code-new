@@ -1,40 +1,24 @@
+// src/lib/supabase.ts
 import { createClient } from '@supabase/supabase-js';
-import { createBrowserClient } from '@supabase/ssr';
-import { create } from 'zustand';
 
-// Get environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-// Connection store
-type ConnectionStore = {
-  isConnected: boolean;
-  setIsConnected: (status: boolean) => void;
-};
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing Supabase environment variables');
+}
 
-export const useConnectionStore = create<ConnectionStore>((set) => ({
-  isConnected: Boolean(supabaseUrl && supabaseKey),
-  setIsConnected: (status) => set({ isConnected: status }),
-}));
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Initialize Supabase client
-export const supabase = createClient(
-  supabaseUrl || 'https://zaofsdlvcrjeukhngvpg.supabase.co',
-  supabaseKey || 'placeholder-key',
-  {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
-    },
-  }
-);
-
-// Export types
+// Type definitions based on your database schema
 export type Category = {
   id: string;
   name: string;
   slug: string;
+  description?: string;
+  color?: string;
+  icon?: string;
+  parent_id?: string;
 };
 
 export type Resource = {
@@ -42,14 +26,11 @@ export type Resource = {
   title: string;
   description: string;
   url: string;
+  image?: string;
   category_id: string;
-  icon: string;
+  tags?: string[];
+  featured: boolean;
+  date_added: string;
+  views_count?: number;
+  likes_count?: number;
 };
-
-// Browser client function for SSR compatibility
-export function createClient() {
-  return createBrowserClient(
-    import.meta.env.VITE_SUPABASE_URL || '',
-    import.meta.env.VITE_SUPABASE_ANON_KEY || ''
-  );
-}
