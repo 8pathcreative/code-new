@@ -160,4 +160,24 @@ export function MegaMenu() {
                       <NavigationMenuContent>
                         <div className="grid grid-cols-2 gap-3 p-4 w-[600px]">
                           {item.columns.map((column, colIndex) => (
-                            <div key={colIndex} className="space-y-
+                            <div key={colIndex} className="space-y-3">
+                              {/* Column content would go here */}
+                            </div>
+                          ))}
+                        </div>
+                      </NavigationMenuContent>
+                    </>
+                  ) : (
+                    <Link to={item.href} className={navigationMenuTriggerStyle()}>
+                      {item.title}
+                    </Link>
+                  )}
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+                  </NavigationMenu>
+                </div>
+              </div>
+              </header>
+            );
+        }
