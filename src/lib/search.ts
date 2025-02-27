@@ -52,7 +52,7 @@ export interface Resource {
 }
 
 // filepath: /Users/neilhumphrey/Desktop/code-new/src/lib/search.ts
-import { Resource } from '../types';
+import { Resource } from '@/types';
 
 export function searchResources(resources: Resource[], query: string): Resource[] {
   return resources.filter(resource => {

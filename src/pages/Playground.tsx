@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { SEO } from '../components/SEO';
-import { supabase } from '../lib/supabase';
+import { SEO } from '@/components/SEO';
+import { supabase } from '@/lib/supabase';
 
 const Playground = () => {
   const [data, setData] = useState([]);

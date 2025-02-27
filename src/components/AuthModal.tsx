@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { signIn, signUp, signOut, useAuthStore } from '../lib/auth';
+import { signIn, signUp, signOut, useAuthStore } from '@/lib/auth';
 import { toast } from 'react-hot-toast';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '../components/ui/dialog';
+} from '@/components/ui/dialog';
 
 type AuthModalProps = {
   isOpen: boolean;

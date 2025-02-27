@@ -2,8 +2,8 @@
 import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/card';
-import { Button } from '../components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Copy, ExternalLink } from 'lucide-react';
 
 interface SnippetCardProps {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
-import { supabase, type Resource, useConnectionStore } from '../lib/supabase';
-import { useCategoriesStore } from '../lib/categories';
-import { Input } from '../components/ui/input';
-import { Button } from '../components/ui/button';
-import { ConnectionStatus } from '../components/ConnectionStatus';
-import { SEO } from '../components/SEO';
-import ResourceCard from '../components/ResourceCard';
+import { supabase, type Resource, useConnectionStore } from '@/lib/supabase';
+import { useCategoriesStore } from '@/lib/categories';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { ConnectionStatus } from '@/components/ConnectionStatus';
+import { SEO } from '@/components/SEO';
+import ResourceCard from '@/components/ResourceCard';
 
 const Home: React.FC = () => {
   const { categories, fetchCategories } = useCategoriesStore();

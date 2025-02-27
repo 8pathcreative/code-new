@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SchemaOrg } from './SchemaOrg';
-import { type SEOConfig, generateSEOConfig } from '../lib/seo';
+import { type SEOConfig, generateSEOConfig } from '@/lib/seo';
 
 export function SEO(props: Partial<SEOConfig>) {
   const {

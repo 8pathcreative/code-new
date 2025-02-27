@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Calendar, ThumbsUp } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { useCategoriesStore } from '../lib/categories';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useCategoriesStore } from '@/lib/categories';
 import { toast } from 'react-hot-toast';
-import { supabase } from '../lib/supabase';
+import { supabase } from '@/lib/supabase';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

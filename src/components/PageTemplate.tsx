@@ -1,6 +1,6 @@
 import React from 'react';
-import { SEOConfig, generateSEOConfig } from '../lib/seo';
-import { CodeEditor } from '../components/CodeEditor';
+import { SEOConfig, generateSEOConfig } from '@/lib/seo';
+import { CodeEditor } from '@/components/CodeEditor';
 
 interface PageTemplateProps {
   seoConfig?: Partial<SEOConfig>;

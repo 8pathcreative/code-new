@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import { generateSEOConfig, SEOConfig } from '../../lib/seo';
+import { generateSEOConfig, SEOConfig } from '@/../lib/seo';
 
 interface SEOProps extends Partial<SEOConfig> {
   children?: ReactNode;
