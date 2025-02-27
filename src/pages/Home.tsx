@@ -104,6 +104,10 @@ const Home: React.FC = () => {
             </div>
           </div>
 
+          <div>
+            <p>Connection status: {isConnected ? 'Connected' : 'Disconnected'}</p>
+          </div>
+
           {!isConnected && <ConnectionStatus />}
 
           {isConnected && (

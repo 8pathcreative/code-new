@@ -28,15 +28,34 @@ import {
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
+// Define Resource type locally
+type Resource = {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  categories: Array<{ id: string; name: string }>;
+  type: string;
+  level: string;
+  isNew?: boolean;
+  publishedAt?: string;
+};
+
 // Mock data for resources
-const MOCK_RESOURCES = [
+const MOCK_RESOURCES: Resource[] = [
   {
     id: 'react-hooks',
     title: 'React Hooks: A Complete Guide',
     description: 'Learn everything you need to know about React Hooks, from useState and useEffect to custom hooks.',
     url: 'https://example.com/react-hooks',
     image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=1740&auto=format&fit=crop',
-    categories: ['React', 'Hooks', 'JavaScript', 'Frontend'],
+    categories: [
+      { id: 'react', name: 'React' },
+      { id: 'hooks', name: 'Hooks' },
+      { id: 'javascript', name: 'JavaScript' },
+      { id: 'frontend', name: 'Frontend' }
+    ],
     type: 'tutorial',
     level: 'intermediate',
     isNew: true,
@@ -48,7 +67,12 @@ const MOCK_RESOURCES = [
     description: 'Explore the new features in Next.js 13 including the app directory, server components, and more.',
     url: 'https://example.com/nextjs-13',
     image: 'https://images.unsplash.com/photo-1619410283995-43d9134e7656?q=80&w=1740&auto=format&fit=crop',
-    categories: ['Next.js', 'React', 'Server Components', 'Frontend'],
+    categories: [
+      { id: 'nextjs', name: 'Next.js' }, 
+      { id: 'react', name: 'React' },
+      { id: 'server-components', name: 'Server Components' },
+      { id: 'frontend', name: 'Frontend' }
+    ],
     type: 'article',
     level: 'advanced',
     publishedAt: '2023-10-15T12:00:00Z',
@@ -59,10 +83,13 @@ const MOCK_RESOURCES = [
     description: 'Get started with TypeScript and learn how to write type-safe JavaScript code.',
     url: 'https://example.com/typescript-basics',
     image: 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?q=80&w=1740&auto=format&fit=crop',
-    categories: ['TypeScript', 'JavaScript', 'Frontend'],
+    categories: [
+      { id: 'typescript', name: 'TypeScript' },
+      { id: 'javascript', name: 'JavaScript' },
+      { id: 'frontend', name: 'Frontend' }
+    ],
     type: 'tutorial',
     level: 'beginner',
-    publishedAt: '2023-09-01T12:00:00Z',
   },
 ];
 
@@ -79,7 +106,7 @@ export default function ResourcesPage() {
       const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         resource.description.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesCategory = selectedCategory === 'all' || resource.categories.includes(selectedCategory);
+      const matchesCategory = selectedCategory === 'all' || resource.categories.some((category: { name: string; }) => category.name === selectedCategory);
       const matchesType = selectedType === 'all' || resource.type === selectedType;
       const matchesLevel = selectedLevel === 'all' || resource.level === selectedLevel;
 

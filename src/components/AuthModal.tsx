@@ -10,7 +10,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 type AuthModalProps = {
   isOpen: boolean;
@@ -21,6 +21,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { user, signIn, signUp, signOut } = useAuth();
 
@@ -33,9 +34,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         await signOut();
         toast.success('Signed out successfully');
       } else {
-        const authFunction = isSignUp ? signUp : signIn;
-        await authFunction(email, password);
-        toast.success(isSignUp ? 'Account created successfully' : 'Signed in successfully');
+        if (isSignUp) {
+          await signUp(email, password, name);
+          toast.success('Account created successfully');
+        } else {
+          await signIn(email, password);
+          toast.success('Signed in successfully');
+        }
       }
       onClose();
     } catch (error) {
@@ -65,29 +70,33 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           {!user && (
             <>
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium leading-none">
-                  Email address
-                </label>
                 <Input
-                  id="email"
                   type="email"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
                   required
                 />
               </div>
-
+              
+              {isSignUp && (
+                <div className="space-y-2">
+                  <Input
+                    type="text"
+                    placeholder="Full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              )}
+              
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium leading-none">
-                  Password
-                </label>
                 <Input
-                  id="password"
                   type="password"
+                  placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
                   required
                 />
               </div>
@@ -95,8 +104,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           )}
 
           <DialogFooter>
-            <Button type="submit" disabled={isLoading} className="w-full">
-              {isLoading ? 'Loading...' : user ? 'Sign Out' : isSignUp ? 'Sign Up' : 'Sign In'}
+            <Button type="submit" disabled={isLoading}>
+              {isLoading
+                ? 'Processing...'
+                : user
+                ? 'Sign out'
+                : isSignUp
+                ? 'Create account'
+                : 'Sign in'}
             </Button>
           </DialogFooter>
         </form>

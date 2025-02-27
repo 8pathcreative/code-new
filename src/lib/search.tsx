@@ -1,7 +1,6 @@
-import { Resource } from './types';
 import { useCategoriesStore } from './categories';
 
-export function searchResources(resources: Resource[], query: string, categorySlug?: string) {
+export function searchResources(resources: Resource[], query: string, categorySlug?: string): Resource[] {
   const searchTerms = query.toLowerCase().split(' ').filter(Boolean);
   const { categories } = useCategoriesStore.getState();
   
@@ -42,26 +41,12 @@ export function debounce<T extends (...args: any[]) => any>(
   };
 }
 
-// filepath: /Users/neilhumphrey/Desktop/code-new/src/types.ts
+// This is our Resource type definition
 export interface Resource {
+  category_id: string;
   id: number;
   title: string;
   description: string;
-  tags: string[]; // Add the tags property
+  tags: string[];
   // other properties...
-}
-
-// filepath: /Users/neilhumphrey/Desktop/code-new/src/lib/search.ts
-import { Resource } from '@/types';
-
-export function searchResources(resources: Resource[], query: string): Resource[] {
-  return resources.filter(resource => {
-    const searchableText = [
-      resource.title,
-      resource.description,
-      resource.tags?.join(' ') || ''
-    ].join(' ').toLowerCase();
-
-    return searchableText.includes(query.toLowerCase());
-  });
 }

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import reactSwc from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import viteCompression from 'vite-plugin-compression';
@@ -8,7 +8,7 @@ import preload from 'vite-plugin-preload';
 
 export default defineConfig({
   plugins: [
-    reactSwc(),
+    react(),
     createHtmlPlugin({
       minify: true,
       inject: {
@@ -45,6 +45,9 @@ export default defineConfig({
     }),
     preload(),
   ],
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -82,7 +85,6 @@ export default defineConfig({
       },
     },
   },
-  // Enable caching
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
     esbuildOptions: {

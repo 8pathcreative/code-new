@@ -4,16 +4,24 @@ import { AppProvider } from './providers/AppProviders';
 import PageLayout from "@/components/PageLayout";
 import AppRoutes from './routes'; // We'll create this next
 import React from 'react';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from 'react-hot-toast';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <HelmetProvider>
-      <AppProvider>
-        <PageLayout>
-          <AppRoutes />
-        </PageLayout>
-      </AppProvider>
-    </HelmetProvider>
+    <AuthProvider>
+      <HelmetProvider>
+        <AppProvider>
+          <BrowserRouter>
+            <PageLayout>
+              <AppRoutes />
+              <Toaster position="top-right" />
+            </PageLayout>
+          </BrowserRouter>
+        </AppProvider>
+      </HelmetProvider>
+    </AuthProvider>
   );
 }
 
