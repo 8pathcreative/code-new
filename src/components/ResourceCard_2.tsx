@@ -1,7 +1,7 @@
 // src/components/resource-card.jsx
 import { memo } from 'react';
 import * as Icons from 'lucide-react';
-import { CategoryBadge } from '@/components/CategoryBadge';
+import { CategoryBadge } from '../src/components/CategoryBadge';
 import React from 'react';
 
 const ResourceCard = ({ resource }) => {
