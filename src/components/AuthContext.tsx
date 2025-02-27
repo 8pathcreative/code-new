@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 // Define types for auth state and context
 type User = {

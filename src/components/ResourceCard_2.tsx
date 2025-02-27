@@ -1,10 +1,26 @@
-// src/components/resource-card.jsx
+// src/components/resource-card.tsx
 import { memo } from 'react';
 import * as Icons from 'lucide-react';
 import { CategoryBadge } from './CategoryBadge';
 import React from 'react';
 
-const ResourceCard = ({ resource }) => {
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Resource {
+  title: string;
+  description?: string;
+  url: string;
+  categories?: Category[];
+}
+
+interface ResourceCardProps {
+  resource: Resource;
+}
+
+const ResourceCard = ({ resource }: ResourceCardProps) => {
   const { title, description, url, categories } = resource;
   
   return (
@@ -12,7 +28,7 @@ const ResourceCard = ({ resource }) => {
       <h3 className="font-medium text-lg mb-2 resource-card-new">{title}</h3>
       {description && <p className="text-gray-600 mb-3 text-sm">{description}</p>}
       <div className="mt-2 space-x-2">
-        {categories?.map(category => (
+        {categories?.map((category) => (
           <CategoryBadge 
             key={category.id} 
             category={category}

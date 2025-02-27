@@ -1,3 +1,4 @@
+// src/components/Snippets/Resource-Components/MegaMenuColumn.tsx
 import React, { ReactNode } from 'react';
 
 interface MegaMenuColumnProps {
@@ -7,13 +8,9 @@ interface MegaMenuColumnProps {
 
 export function MegaMenuColumn({ title, children }: MegaMenuColumnProps) {
   return (
-    <div className="space-y-3">
-      <h3 className="font-medium text-sm text-muted-foreground tracking-wide uppercase">
-        {title}
-      </h3>
-      <div className="space-y-2">
-        {children}
-      </div>
+    <div className="space-y-2">
+      <h3 className="font-medium">{title}</h3>
+      {children}
     </div>
   );
 }
