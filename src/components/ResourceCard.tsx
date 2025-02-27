@@ -2,8 +2,7 @@ import React from 'react';
 import * as Icons from 'lucide-react';
 import { Resource } from '../lib/supabase';
 import { useCategoriesStore } from '../lib/categories';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/card';
 import { ExternalLink } from 'lucide-react';
 import Icon from './Icon';
 

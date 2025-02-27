@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
 import { supabase, type Resource, useConnectionStore } from '../lib/supabase';
 import { useCategoriesStore } from '@/lib/categories';
-import { ResourceCard } from '../components/ResourceCard';
+import { ResourceCard_2 } from '../components/ResourceCard_2';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ConnectionStatus } from '@/components/ConnectionStatus';
