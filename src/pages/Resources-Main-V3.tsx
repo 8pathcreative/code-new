@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
-import { Header } from 'src/components/Header';
-import ResourceCard from 'src/components/ResourceCard_2';
+import { Header } from '@/components/Header';
+import ResourceCard from '@/components/ResourceCard_2';
 import { Input } from '@/components/ui/input';
 import {
   Select,

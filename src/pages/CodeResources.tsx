@@ -52,6 +52,23 @@ interface CategoryMap {
 // Now you can safely do:
 // const category = categoryMap[categoryId]; // This line is not needed and can be removed
 
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  image: string;
+  url: string;
+  featured: boolean;
+  dateAdded: string;
+}
+
+interface ResourceGridProps {
+  resources: Resource[];
+  isLoading: boolean;
+}
+
 export default function ResourcesPage() {
   const [resources] = useState(initialResources);
   const [filteredResources, setFilteredResources] = useState(initialResources);
@@ -172,23 +189,28 @@ export default function ResourcesPage() {
   );
 }
 
+const CodeResources = () => {
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  useEffect(() => {
+    // Fetch resources and update state
+    fetch('/api/resources')
+      .then(response => response.json())
+      .then(data => {
+        setResources(data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching resources:', error);
+        setIsLoading(false);
+      });
+  }, []);
 
-{/*
-src/
-├── components/
-│   ├── resources/
-│   │   ├── ResourceCard.tsx
-│   │   ├── ResourceGrid.tsx
-│   │   ├── ResourceFilters.tsx
-│   │   └── ResourceSearch.tsx
-│   ├── layout/
-│   │   ├── MegaMenu/
-│   │   │   ├── index.tsx
-│   │   │   ├── MegaMenuItem.tsx
-│   │   │   └── MegaMenuColumn.tsx
-│   │   └── ThemeToggle.tsx
-│   └── ui/ (shadcn components)
-└── pages/
-  └── ResourcesPage.tsx
-*/}
+  return (
+    <div>
+      <h1>Code Resources</h1>
+      <ResourceGrid resources={resources} isLoading={isLoading} />
+    </div>
+  );
+};

@@ -2,6 +2,11 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 
+interface GenericStringError {
+  message: string;
+  code?: string;
+}
+
 export function useSupabaseQuery<T>(
   tableName: string,
   query: any = {},
@@ -10,6 +15,7 @@ export function useSupabaseQuery<T>(
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [errors, setErrors] = useState<GenericStringError[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

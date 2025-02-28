@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import ResourceCard from 'src/components/ResourceCard';
+import ResourceCard from '@/components/ResourceCard';
 import { getResources, getCategories } from '@/lib/resources';
 import type { Resource as ResourceType, Category } from '@/lib/supabase';
 

@@ -1,5 +1,5 @@
 import { ThemeProvider } from 'next-themes';
-import Navbar from 'src/components/NavbarNew';
+import Navbar from '@/components/NavbarNew';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
