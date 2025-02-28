@@ -90,7 +90,7 @@
     "vite-plugin-imagemin": "^0.6.1",
     "vite-plugin-preload": "^0.4.2",
     "vite-plugin-pwa": "^0.21.1",
-    "vitest": "^1.3.1"
+    "vitest": "^1.6.1"
   },
   "compilerOptions": {
     "allowImportingTsExtensions": true,
