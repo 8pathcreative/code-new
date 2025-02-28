@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
-import { MegaMenu } from '@/components/layout/MegaMenu';
-import { ResourceGrid } from '@/components/resources/ResourceGrid';
-import { ResourceFilters } from '@/components/resources/ResourceFilters';
-import { ResourceSearch } from '@/components/resources/ResourceSearch';
+import { MegaMenu } from 'src/components/Snippets/Resource-Components/MegaMenuComponent.tsx';
+import { ResourceGrid } from 'src/components/Snippets/Resource-Components/ResourceGridComponent.tsx';
+import { ResourceFilters } from 'src/components/Snippets/Resource-Components/ResourceFiltersComponent.tsx';
+import { ResourceSearch } from 'src/components/Snippets/Resource-Components/ResourceSearchComponent.tsx';
 
 // Mock resource categories for the example
 const categories = [
@@ -33,12 +33,32 @@ const initialResources = [
   // Each with different categories, some featured, some not
 ];
 
+// Add a proper index signature to your object type
+interface FilterState {
+  [key: string]: boolean | string | number;
+}
+
+// If it's a mapping of categories to their properties
+interface CategoryMap {
+  [categoryId: string]: {
+    name: string;
+    count: number;
+    isSelected?: boolean;
+  };
+}
+
+const categoryMap: CategoryMap = {};
+
+// Now you can safely do:
+// const category = categoryMap[categoryId]; // This line is not needed and can be removed
+
 export default function ResourcesPage() {
   const [resources, setResources] = useState(initialResources);
   const [filteredResources, setFilteredResources] = useState(initialResources);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [filters, setFilters] = useState<FilterState>({});
 
   // Filter resources based on category and search query
   useEffect(() => {
@@ -69,12 +89,23 @@ export default function ResourcesPage() {
   }, [selectedCategory, searchQuery, resources]);
 
   // Count resources by category for the filter badges
-  const resourceCounts = categories.reduce((acc, category) => {
+  const resourceCounts = categories.reduce<{ [key: string]: number }>((acc, category) => {
     acc[category.id] = category.id === 'all' 
       ? resources.length 
       : resources.filter(r => r.category === category.id).length;
     return acc;
   }, {});
+
+  // Now you can safely access properties with string indices
+  const handleFilterChange = (filterName: string, value: boolean | string | number) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterName]: value
+    }));
+  };
+
+  // When accessing the filter values
+  // const currentValue = filters[filterName]; // No more type error
 
   return (
     <>
