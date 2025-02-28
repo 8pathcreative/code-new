@@ -10,9 +10,11 @@ interface Resource {
 }
 
 /// Adapter component to convert string categories to object format
+import { ResourceCard } from './ResourceCard'; // Import the ResourceCard component
+
 export const ResourceCardAdapter = ({ resource }: { resource: Resource }) => {
   // Transform the categories from strings to objects with name/id properties
-  const formattedCategories = resource.categories.map((categorySlug: any) => ({
+  const formattedCategories = resource.categories.map((categorySlug: string) => ({
       name: categorySlug,
       id: categorySlug
   }));
@@ -26,5 +28,5 @@ export const ResourceCardAdapter = ({ resource }: { resource: Resource }) => {
       image: resource.image
   };
 
-  return <ResourceCardAdapter resource={compatibleResource} />;
+  return <ResourceCard resource={compatibleResource} />;
 };
