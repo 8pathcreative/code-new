@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 interface CodeBlockProps {
   code: string;
   language: string;
-  title?: string;
+  title?: string; // Add this line
   showLineNumbers?: boolean;
   className?: string;
 }

@@ -190,10 +190,22 @@ export async function apiRequest<T>(
   },
 ];
 
+// Define the interface for your snippets
+interface Snippet {
+  id: string;
+  title: string;
+  description: string;
+  language: string;
+  code: string;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 export function SnippetsPage() {
-  const [snippets, setSnippets] = useState([]);
+  const [snippets, setSnippets] = useState<Snippet[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Simulate API fetch with a delay

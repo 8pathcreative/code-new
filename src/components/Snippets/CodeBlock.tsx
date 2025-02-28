@@ -6,16 +6,12 @@ import { CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 interface CodeBlockProps {
   code: string;
   language: string;
-  filename?: string;
+  title?: string;
   showLineNumbers?: boolean;
+  className?: string;
 }
 
-export function CodeBlock({ 
-  code, 
-  language, 
-  filename, 
-  showLineNumbers = true 
-}: CodeBlockProps) {
+const CodeBlock: React.FC<CodeBlockProps> = ({ code, language, title, showLineNumbers = false, className }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -25,10 +21,10 @@ export function CodeBlock({
   };
 
   return (
-    <div className="rounded-lg overflow-hidden bg-gray-900 my-4">
-      {filename && (
+    <div className={`code-block ${className}`}>
+      {title && (
         <div className="px-4 py-2 bg-gray-800 text-gray-300 text-sm font-mono border-b border-gray-700 flex justify-between items-center">
-          <span>{filename}</span>
+          <span>{title}</span>
           <button
             onClick={handleCopy}
             className="text-gray-400 hover:text-white transition-colors flex items-center gap-1 text-xs"
@@ -62,6 +58,6 @@ export function CodeBlock({
       </SyntaxHighlighter>
     </div>
   );
-}
+};
 
 export default CodeBlock;

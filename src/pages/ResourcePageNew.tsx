@@ -26,7 +26,13 @@ import {
   SearchIcon,
   XIcon,
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@supabase/supabase-js';
+
+// Define the Supabase client once at the top level
+const supabaseClient = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 interface Category {
   id: string;
@@ -35,15 +41,27 @@ interface Category {
   description?: string;
 }
 
-import { supabase } from '@/lib/supabase';
+interface Resource {
+  type: string;
+  id: string;
+  title: string;
+  description: string;
+  url?: string;
+  categories?: {
+    slug: string;
+    name: string;
+    id?: string;
+  }[];
+  created_at?: string;
+  updated_at?: string;
+}
 
 async function testConnection() {
-  const { data, error } = await supabase.from('resources_row').select('*').limit(1);
+  const { data, error } = await supabaseClient.from('resources_row').select('*').limit(1);
   console.log({ data, error });
 }
 
 testConnection();
-
 
 export default function ResourcesPage() {
   const [resources, setResources] = useState<Resource[]>([]);
@@ -64,7 +82,7 @@ export default function ResourcesPage() {
 
       try {
         // Fetch categories
-        const { data: categoriesData, error: categoriesError } = await supabase
+        const { data: categoriesData, error: categoriesError } = await supabaseClient
           .from('resource_categories')
           .select('*')
           .order('name');
@@ -72,7 +90,7 @@ export default function ResourcesPage() {
         if (categoriesError) throw categoriesError;
 
         // Fetch resources
-        const { data: resourcesData, error: resourcesError } = await supabase
+        const { data: resourcesData, error: resourcesError } = await supabaseClient
           .from('resources_row')
           .select('*')
           .order('created_at', { ascending: false });
@@ -111,7 +129,7 @@ export default function ResourcesPage() {
 
     // Filter by selected category
     const matchesCategory =
-      selectedCategory === 'all' || resource.categories.includes(selectedCategory);
+      selectedCategory === 'all' || (resource.categories && resource.categories.some(category => category.name === selectedCategory));
 
     // Filter by type
     const matchesType = selectedType === 'all' || resource.type === selectedType;
@@ -301,12 +319,12 @@ export default function ResourcesPage() {
               <TabsContent key={category.id} value={category.slug} className="mt-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredResources
-                    .filter((resource) => resource.categories.includes(category.slug))
+                    .filter((resource) => resource.categories && resource.categories.some(cat => cat.slug === category.slug))
                     .map((resource) => (
                       <ResourceCard key={resource.id} resource={resource} />
                     ))}
                 </div>
-                {filteredResources.filter((resource) => resource.categories.includes(category.slug))
+                {filteredResources.filter((resource) => resource.categories?.some(cat => cat.slug === category.slug))
                   .length === 0 && (
                   <div className="text-center p-12">
                     <h3 className="text-lg font-medium mb-2">No resources found in this category</h3>

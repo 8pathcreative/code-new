@@ -1,5 +1,3 @@
-// Add this to src/pages/Resources-Listing.tsx after your imports
-
 // Define the Resource interface
 interface Resource {
   title: string;
@@ -10,7 +8,7 @@ interface Resource {
 }
 
 /// Adapter component to convert string categories to object format
-import { ResourceCard } from './ResourceCard'; // Import the ResourceCard component
+import ResourceCard from './ResourceCard'; // Use default import
 
 export const ResourceCardAdapter = ({ resource }: { resource: Resource }) => {
   // Transform the categories from strings to objects with name/id properties

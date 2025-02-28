@@ -13,11 +13,9 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "strict": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@components/*": ["./src/components/*"]
+      "@/*": ["*"]
     },
     "allowJs": false,
     "esModuleInterop": true,
