@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 
 export interface SEOConfig {
   title: string;

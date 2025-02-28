@@ -9,24 +9,22 @@ interface Resource {
   image?: string;
 }
 
-// Adapter component to convert string categories to object format
+/// Adapter component to convert string categories to object format
 export const ResourceCardAdapter = ({ resource }: { resource: Resource }) => {
-    // Transform the categories from strings to objects with name/id properties
-    const formattedCategories = resource.categories.mconst formattedCategories = categories.map(cat => cat.name); // Ensure string array
-    ap((categorySlug: any) => ({
+  // Transform the categories from strings to objects with name/id properties
+  const formattedCategories = resource.categories.map((categorySlug: any) => ({
       name: categorySlug,
       id: categorySlug
-    }));
-    
-    // Create a compatible resource object for ResourceCard
-    const compatibleResource = {
+  }));
+
+  // Create a compatible resource object for ResourceCard
+  const compatibleResource = {
       title: resource.title,
       description: resource.description,
       url: resource.url,
-      categories: formattedCategories,
-      // Add other needed properties
+      categories: formattedCategories, // Ensure proper structure
       image: resource.image
-    };
-    
-    return <ResourceCardAdapter resource={compatibleResource} />;
   };
+
+  return <ResourceCardAdapter resource={compatibleResource} />;
+};

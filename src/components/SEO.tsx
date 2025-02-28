@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 
 import { SchemaOrg } from './SchemaOrg';
-import { type SEOConfig, generateSEOConfig } from '@/lib/seo';
+import { type SEOConfig as ImportedSEOConfig, generateSEOConfig } from '@/lib/seo';
 
 // SEOConfig interface
 export interface SEOConfig {
@@ -24,7 +24,7 @@ export function SEO(props: Partial<SEOConfig>) {
 
   return (
     <>
-      <Helmet>
+      <HelmetProvider>
         {/* Basic metadata */}
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -60,7 +60,7 @@ export function SEO(props: Partial<SEOConfig>) {
         <meta httpEquiv="X-Frame-Options" content="DENY" />
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
         <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-      </Helmet>
+      </HelmetProvider>
 
       {/* Add schema.org structured data */}
       <SchemaOrg {...(schema || generateSEOConfig().schema!)} />
