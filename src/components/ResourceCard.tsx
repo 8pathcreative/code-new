@@ -36,8 +36,8 @@ function ResourceCard({ resource, onClick }: ResourceCardProps) {
           <div className="mt-2 space-x-2">
             {categories?.map(category => (
               <CategoryBadge 
-                key={category.id} 
-                category={category}
+                key={category.id ?? category.name} 
+                category={{...category, id: category.id ?? category.name}}
               />
             ))}
           </div>

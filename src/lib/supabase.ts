@@ -2,18 +2,18 @@
 import { createClient } from '@supabase/supabase-js';
 import { create } from 'zustand';
 
-// Define the environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Get environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Create the Supabase client if credentials are available
-export const supabase = createClient(supabaseUrl, supabaseKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  }
-});
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error(
+    'Missing Supabase environment variables. Please check your .env file.'
+  );
+}
+
+// Create and export the supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Connection store interface
 interface ConnectionState {
@@ -23,7 +23,7 @@ interface ConnectionState {
 
 // Create and export the connection store
 export const useConnectionStore = create<ConnectionState>((set) => ({
-  isConnected: Boolean(supabaseUrl && supabaseKey),
+  isConnected: Boolean(supabaseUrl && supabaseAnonKey),
   setConnected: (status: boolean) => set({ isConnected: status }),
 }));
 

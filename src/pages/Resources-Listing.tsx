@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
 import { MegaMenu } from '@/components/Snippets/Resource-Components/MegaMenuComponent';
-import ResourceCard from 'src/components/ResourceCard';
+import { ResourceCardAdapter } from '../components/ResourceCardAdapter';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -47,7 +47,7 @@ interface Resource {
   image?: string;
 }
 
-export default function ResourcesPage() {
+export default function ResourcePageNew() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -102,6 +102,31 @@ export default function ResourcesPage() {
 
     fetchData();
   }, []);
+
+  // src/pages/Resources-Listing.tsx
+// Add this right after your existing useEffect hook
+
+// Debug Supabase connection
+useEffect(() => {
+  const debugSupabase = async () => {
+    console.log("Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
+    console.log("Supabase Key exists:", Boolean(import.meta.env.VITE_SUPABASE_ANON_KEY));
+    
+    try {
+      // Test connection with simple query
+      const { data, error } = await supabase.from('resource_categories').select('count').limit(1);
+      console.log("Supabase connection test:", { data, error });
+      
+      if (error) {
+        console.error("Supabase connection error:", error);
+      }
+    } catch (err) {
+      console.error("Failed to connect to Supabase:", err);
+    }
+  };
+  
+  debugSupabase();
+}, []);
 
   // Filter resources based on search query and filters
   const filteredResources = resources.filter(resource => {
@@ -295,8 +320,7 @@ export default function ResourcesPage() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredResources.map((resource) => (
-                    <ResourceCard key={resource.id} resource={resource} />
-                  ))}
+                    <ResourceCardAdapter key={resource.id} resource={resource} />                  ))}
                 </div>
               )}
             </TabsContent>
@@ -308,8 +332,7 @@ export default function ResourcesPage() {
                   {filteredResources.filter(resource =>
                     resource.categories.includes(category.slug)
                   ).map((resource) => (
-                    <ResourceCard key={resource.id} resource={resource} />
-                  ))}
+<ResourceCardAdapter key={resource.id} resource={resource} />                  ))}
                 </div>
                 {filteredResources.filter(resource =>
                   resource.categories.includes(category.slug)

@@ -79,14 +79,12 @@ export function ResourceGrid({
       {sortedResources.map(resource => (
         <ResourceCard
           key={resource.id}
-          title={resource.title}
-          description={resource.description}
-          category={getCategoryName(resource.category_id)}
-          tags={resource.tags || []}
-          image={resource.image || ''}
-          url={resource.url}
-          featured={resource.featured}
-          dateAdded={resource.date_added}
+          resource={{
+            title: resource.title,
+            description: resource.description,
+            categories: [{ name: getCategoryName(resource.category_id) }],
+            url: resource.url
+          }}
         />
       ))}
       

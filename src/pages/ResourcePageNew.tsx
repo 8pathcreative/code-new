@@ -35,6 +35,16 @@ interface Category {
   description?: string;
 }
 
+import { supabase } from '@/lib/supabase';
+
+async function testConnection() {
+  const { data, error } = await supabase.from('resources_row').select('*').limit(1);
+  console.log({ data, error });
+}
+
+testConnection();
+
+
 export default function ResourcesPage() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
