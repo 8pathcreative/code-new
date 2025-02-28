@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
-import { MegaMenu } from 'components/Snippets/Resource-Components/MegaMenuComponent';
-import { ResourceCard } 'src/components/ResourceCard_2';
+import { MegaMenu } from '@/components/Snippets/Resource-Components/MegaMenuComponent';
+import ResourceCard from 'src/components/ResourceCard';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -33,6 +33,18 @@ interface Category {
   name: string;
   slug: string;
   description?: string;
+}
+
+// Add this after the Category interface
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  categories: string[];
+  type: string;
+  created_at: string;
+  image?: string;
 }
 
 export default function ResourcesPage() {

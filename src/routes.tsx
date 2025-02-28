@@ -19,7 +19,9 @@ const ResourcesPageV3 = React.lazy(() => import('./pages/Resources-Main-V3'));
 const ResourcePageNew = React.lazy(() => import('./pages/ResourcePageNew'));
 const SandboxCode = React.lazy(() => import('./pages/SandboxCode'));
 const SandboxCodeV2 = React.lazy(() => import('./pages/SandboxCodeV2'));
-const ExampleV1 = React.lazy(() => import('./pages/ExampleV1'));
+const ExampleV1 = React.lazy(() => 
+  import('./pages/ExampleV1').then(module => ({ default: module.ExampleV1 }))
+);
 const NewPage = React.lazy(() => import('./pages/NewPage'));
 
 // Loading fallback component

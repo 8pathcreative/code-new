@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
-import { MegaMenu } from '@/components/layout/MegaMenu';
-import { ResourceGrid } from '@/components/resources/ResourceGrid';
-import { ResourceFilters } from '@/components/resources/ResourceFilters';
-import { ResourceSearch } from '@/components/resources/ResourceSearch';
+
+// Types for our resources
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  image: string;
+  url: string;
+  featured: boolean;
+  dateAdded: string;
+}
 
 // Mock resource categories for the example
-const categories = [
+const categories: Category[] = [
   { id: 'all', name: 'All Resources' },
   { id: 'frameworks', name: 'Frameworks' },
   { id: 'libraries', name: 'Libraries' },
@@ -17,7 +31,7 @@ const categories = [
 ];
 
 // Mock resources data
-const initialResources = [
+const initialResources: Resource[] = [
   {
     id: '1',
     title: 'React Design Patterns',
@@ -29,16 +43,116 @@ const initialResources = [
     featured: true,
     dateAdded: '2023-11-22'
   },
-  // Add more resources here...
-  // Each with different categories, some featured, some not
+  {
+    id: '2',
+    title: 'Vue.js Component Library',
+    description: 'Pre-built components for Vue applications',
+    category: 'libraries',
+    tags: ['vue', 'components', 'ui'],
+    image: '/images/resources/vue-components.webp',
+    url: '/resources/vue-components',
+    featured: false,
+    dateAdded: '2023-10-15'
+  }
 ];
 
+// Resource component definitions
+const MegaMenu: React.FC = () => (
+  <header className="border-b p-4 bg-background">
+    <div className="container mx-auto flex justify-between items-center">
+      <div className="font-bold text-xl">Code Resources</div>
+      <nav>
+        <ul className="flex gap-4">
+          <li>Home</li>
+          <li>Resources</li>
+          <li>About</li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+);
+
+interface ResourceSearchProps {
+  onSearch: (query: string) => void;
+  query: string;
+}
+
+const ResourceSearch: React.FC<ResourceSearchProps> = ({ onSearch, query }) => (
+  <div className="relative">
+    <input
+      type="text"
+      placeholder="Search resources..."
+      className="w-full p-2 pl-10 rounded-md border"
+      value={query}
+      onChange={(e) => onSearch(e.target.value)}
+    />
+    <span className="absolute left-3 top-2.5">🔍</span>
+  </div>
+);
+
+interface ResourceFiltersProps {
+  categories: Category[];
+  selectedCategory: string;
+  onSelectCategory: (id: string) => void;
+  resourceCounts: Record<string, number>;
+}
+
+const ResourceFilters: React.FC<ResourceFiltersProps> = ({
+  categories,
+  selectedCategory,
+  onSelectCategory,
+  resourceCounts
+}) => (
+  <div className="flex flex-wrap gap-2">
+    {categories.map((category) => (
+      <button
+        key={category.id}
+        className={`px-3 py-1 rounded-full border ${
+          selectedCategory === category.id ? 'bg-primary text-primary-foreground' : 'bg-background'
+        }`}
+        onClick={() => onSelectCategory(category.id)}
+      >
+        {category.name} ({resourceCounts[category.id] || 0})
+      </button>
+    ))}
+  </div>
+);
+
+interface ResourceGridProps {
+  resources: Resource[];
+  isLoading: boolean;
+}
+
+const ResourceGrid: React.FC<ResourceGridProps> = ({ resources, isLoading }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {isLoading ? (
+      Array.from({ length: 6 }).map((_, i) => (
+        <div key={i} className="rounded-lg border p-4 h-64 animate-pulse bg-muted"></div>
+      ))
+    ) : (
+      resources.map((resource) => (
+        <div key={resource.id} className="rounded-lg border p-4">
+          <h3 className="font-medium text-lg">{resource.title}</h3>
+          <p className="text-muted-foreground text-sm mt-2">{resource.description}</p>
+          <div className="mt-4 flex gap-2">
+            {resource.tags.map((tag) => (
+              <span key={tag} className="px-2 py-1 text-xs rounded-full bg-secondary">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+);
+
 export default function ResourcesPage() {
-  const [resources, setResources] = useState(initialResources);
-  const [filteredResources, setFilteredResources] = useState(initialResources);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [resources] = useState<Resource[]>(initialResources);
+  const [filteredResources, setFilteredResources] = useState<Resource[]>(initialResources);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Filter resources based on category and search query
   useEffect(() => {
@@ -69,7 +183,7 @@ export default function ResourcesPage() {
   }, [selectedCategory, searchQuery, resources]);
 
   // Count resources by category for the filter badges
-  const resourceCounts = categories.reduce((acc, category) => {
+  const resourceCounts = categories.reduce<Record<string, number>>((acc, category) => {
     acc[category.id] = category.id === 'all' 
       ? resources.length 
       : resources.filter(r => r.category === category.id).length;
