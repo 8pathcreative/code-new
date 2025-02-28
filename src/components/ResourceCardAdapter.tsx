@@ -12,7 +12,8 @@ interface Resource {
 // Adapter component to convert string categories to object format
 export const ResourceCardAdapter = ({ resource }: { resource: Resource }) => {
     // Transform the categories from strings to objects with name/id properties
-    const formattedCategories = resource.categories.map((categorySlug: any) => ({
+    const formattedCategories = resource.categories.mconst formattedCategories = categories.map(cat => cat.name); // Ensure string array
+    ap((categorySlug: any) => ({
       name: categorySlug,
       id: categorySlug
     }));

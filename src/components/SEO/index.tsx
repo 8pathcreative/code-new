@@ -26,7 +26,7 @@ export function SEO({ children, ...seoProps }: SEOProps) {
   const seo = generateSEOConfig(seoProps);
 
   return (
-    <Helmet>
+    <HelmetProvider>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       {seo.image && <meta property="og:image" content={seo.image} />}
@@ -35,6 +35,6 @@ export function SEO({ children, ...seoProps }: SEOProps) {
       <meta property="og:description" content={seo.description} />
       {seo.canonical && <link rel="canonical" href={seo.canonical} />}
       {children}
-    </Helmet>
+    </HelmetProvider>
   );
 }
