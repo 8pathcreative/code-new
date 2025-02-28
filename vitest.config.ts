@@ -4,8 +4,5 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    transform: {
-      '^.+\\.tsx?$': 'ts-jest',
-    },
   },
 });

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { SEO } from '@/components/SEO';
-import { MegaMenu } from 'src/components/Snippets/Resource-Components/MegaMenuComponent.tsx';
-import { ResourceGrid } from 'src/components/Snippets/Resource-Components/ResourceGridComponent.tsx';
-import { ResourceFilters } from 'src/components/Snippets/Resource-Components/ResourceFiltersComponent.tsx';
-import { ResourceSearch } from 'src/components/Snippets/Resource-Components/ResourceSearchComponent.tsx';
+import { MegaMenu } from '@/components/Snippets/Resource-Components/MegaMenuComponent';
+import { ResourceGrid } from '@/components/Snippets/Resource-Components/ResourceGridComponent';
+import { ResourceFilters } from '@/components/Snippets/Resource-Components/ResourceFiltersComponent';
+import { ResourceSearch } from '@/components/Snippets/Resource-Components/ResourceSearchComponent';
 
 // Mock resource categories for the example
 const categories = [
@@ -47,18 +47,18 @@ interface CategoryMap {
   };
 }
 
-const categoryMap: CategoryMap = {};
+// const categoryMap: CategoryMap = {}; // This line is not needed and can be removed
 
 // Now you can safely do:
 // const category = categoryMap[categoryId]; // This line is not needed and can be removed
 
 export default function ResourcesPage() {
-  const [resources, setResources] = useState(initialResources);
+  const [resources] = useState(initialResources);
   const [filteredResources, setFilteredResources] = useState(initialResources);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [filters, setFilters] = useState<FilterState>({});
+  // const [filters, setFilters] = useState<FilterState>({}); // This line is not needed and can be removed
 
   // Filter resources based on category and search query
   useEffect(() => {
@@ -97,12 +97,12 @@ export default function ResourcesPage() {
   }, {});
 
   // Now you can safely access properties with string indices
-  const handleFilterChange = (filterName: string, value: boolean | string | number) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [filterName]: value
-    }));
-  };
+  // const handleFilterChange = (filterName: string, value: boolean | string | number) => {
+  //   setFilters(prevFilters => ({
+  //     ...prevFilters,
+  //     [filterName]: value
+  //   }));
+  // };
 
   // When accessing the filter values
   // const currentValue = filters[filterName]; // No more type error
