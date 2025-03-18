@@ -1,7 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-interface SchemaOrgProps {
+/**
+ * Props for the SchemaOrg component.
+ * 
+ * @interface SchemaOrgProps
+ * @property {'WebSite' | 'Organization' | 'Article' | 'Product' | 'BreadcrumbList'} type
+ *   The type of schema.org entity.
+ * @property {Record<string, any>} data
+ *   The data associated with the schema.org entity.
+ */
+export interface SchemaOrgProps {
   type: 'WebSite' | 'Organization' | 'Article' | 'Product' | 'BreadcrumbList';
   data: Record<string, any>;
 }

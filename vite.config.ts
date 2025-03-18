@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import viteCompression from 'vite-plugin-compression';
-import path from 'path';
+import { VitePWA } from 'vite-plugin-pwa';
+import preload from 'vite-plugin-preload';
 
 export default defineConfig({
   plugins: [
@@ -12,22 +14,43 @@ export default defineConfig({
       inject: {
         data: {
           title: 'Code Tutorials: Tools, Components, and Best Practices for Modern Web Development',
-          description: 'Empower your design and development workflow with our comprehensive tutorial guide. Explore reusable components, code snippets, and best practices for Tailwind CSS, React, Supabase, and Vite. Perfect for designers and developers building modern web applications.',
         },
       },
-    }),
-    viteCompression({
-      algorithm: 'gzip',
-      ext: '.gz',
     }),
     viteCompression({
       algorithm: 'brotliCompress',
       ext: '.br',
     }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
+    }),
+    preload(),
   ],
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   server: {
@@ -42,18 +65,30 @@ export default defineConfig({
   build: {
     target: 'esnext',
     minify: 'esbuild',
+    cssMinify: true,
     sourcemap: false,
     chunkSizeWarningLimit: 500, // Adjust chunk limits
     reportCompressedSize: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-slot', 'class-variance-authority', 'clsx', 'tailwind-merge'],
-          'motion-vendor': ['framer-motion'],
-          'icons-vendor': ['lucide-react']
+        manualChunks: (id) => {
+          // Enhanced chunk splitting logic
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'vendor-react';
+            if (id.includes('@radix') || id.includes('class-variance-authority') || 
+                id.includes('clsx') || id.includes('tailwind-merge')) return 'vendor-ui';
+            if (id.includes('framer-motion')) return 'vendor-animation';
+            if (id.includes('lucide')) return 'vendor-icons';
+            return 'vendor'; // all other deps
+          }
         },
       },
+    },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+    esbuildOptions: {
+      target: 'esnext',
     },
   },
 });

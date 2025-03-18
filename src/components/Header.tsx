@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useAuthStore } from '../lib/auth';
-import { useThemeStore } from '../lib/theme';
-import { AuthModal } from './AuthModal';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { AuthModal } from '@/components/AuthModal';
+import { useThemeStore } from '@/lib/theme';
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const location = useLocation();
-  const user = useAuthStore((state) => state.user);
+  const { user, isAuthenticated, signOut } = useAuth();
   const { isDark, toggleTheme } = useThemeStore();
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Advertise', href: '/advertise' },
+    { name: 'Resources', href: '/resources' },
     { name: 'Playground', href: '/playground' },
+    { name: 'Snippets', href: '/snippets' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -34,102 +34,47 @@ export function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-4">
             {navigation.map((item) => (
-              <Button
+              <Link
                 key={item.name}
-                variant={location.pathname === item.href ? 'default' : 'ghost'}
-                className="text-sm"
-                asChild
+                to={item.href}
+                className={`px-3 py-2 text-sm font-medium rounded-md ${
+                  location.pathname === item.href
+                    ? 'text-foreground bg-accent/50'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/30'
+                }`}
               >
-                <Link to={item.href}>{item.name}</Link>
-              </Button>
+                {item.name}
+              </Link>
             ))}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ml-2"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            {user ? (
-              <Button
-                variant="ghost"
-                onClick={() => setIsAuthModalOpen(true)}
-                className="text-sm"
-              >
-                Account
-              </Button>
-            ) : (
-              <Button onClick={() => setIsAuthModalOpen(true)}>Sign In</Button>
-            )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center space-x-4 md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
+          {/* Auth and Theme Controls */}
+          <div className="flex items-center space-x-2">
+            <Button 
+              variant="ghost" 
+              size="icon" 
               onClick={toggleTheme}
-              aria-label="Toggle theme"
+              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
+              {isDark ? (
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                </svg>
               ) : (
-                <Menu className="h-5 w-5" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                </svg>
               )}
+            </Button>
+            
+            <Button
+              variant="outline"
+              onClick={() => setIsAuthModalOpen(true)}
+            >
+              {isAuthenticated ? 'Account' : 'Sign In'}
             </Button>
           </div>
         </div>
-
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background border-b md:hidden">
-            <div className="container py-4 space-y-2">
-              {navigation.map((item) => (
-                <Button
-                  key={item.name}
-                  variant={location.pathname === item.href ? 'default' : 'ghost'}
-                  className="w-full justify-start"
-                  asChild
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Link to={item.href}>{item.name}</Link>
-                </Button>
-              ))}
-              {user ? (
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start"
-                  onClick={() => {
-                    setIsAuthModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Account
-                </Button>
-              ) : (
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    setIsAuthModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Sign In
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
       </nav>
 
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />

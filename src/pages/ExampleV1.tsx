@@ -30,7 +30,7 @@ export function ExampleV1() {
                 <span className="sr-only">Your Company</span>
                 <img
                   alt=""
-                  src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                  src="/images/logo.svg" // Ensure this path is correct
                   className="h-8 w-auto"
                 />
               </a>
@@ -66,7 +66,7 @@ export function ExampleV1() {
                   <span className="sr-only">Your Company</span>
                   <img
                     alt=""
-                    src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                    src="/images/logo.svg" // Ensure this path is correct
                     className="h-8 w-auto"
                   />
                 </a>

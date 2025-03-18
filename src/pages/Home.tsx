@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
-import { supabase, type Resource, useConnectionStore } from '../lib/supabase';
+import { supabase, type Resource, useConnectionStore } from '@/lib/supabase';
 import { useCategoriesStore } from '@/lib/categories';
-import { ResourceCard } from '../components/ResourceCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ConnectionStatus } from '@/components/ConnectionStatus';
-import { SEO } from '../components/SEO';
+import { SEO } from '@/components/SEO';
+import ResourceCard from '@/components/ResourceCard';
 
 const Home: React.FC = () => {
   const { categories, fetchCategories } = useCategoriesStore();
@@ -77,15 +77,6 @@ const Home: React.FC = () => {
       <SEO 
         title={seoTitle}
         description={seoDescription}
-        keywords={[
-          'coding resources',
-          'programming tutorials',
-          'web development',
-          'design resources',
-          currentCategory?.name.toLowerCase() || '',
-          'learning materials',
-          'developer tools'
-        ].filter(Boolean)}
       />
       
       <div className="min-h-screen bg-gradient-to-b from-background to-background/80">
@@ -111,6 +102,10 @@ const Home: React.FC = () => {
                 />
               </div>
             </div>
+          </div>
+
+          <div>
+            <p>Connection status: {isConnected ? 'Connected' : 'Disconnected'}</p>
           </div>
 
           {!isConnected && <ConnectionStatus />}

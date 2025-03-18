@@ -1,5 +1,4 @@
 import { type SchemaOrgProps } from '@/components/SchemaOrg';
-
 export interface SEOConfig {
   title?: string;
   description?: string;
@@ -8,6 +7,7 @@ export interface SEOConfig {
   type?: string;
   schema?: SchemaOrgProps;
 }
+
 
 export const defaultSEOConfig: SEOConfig = {
   title: 'Code Tutorials: Tools, Components, and Best Practices for Modern Web Development',
@@ -30,6 +30,7 @@ export const defaultSEOConfig: SEOConfig = {
     }
   }
 };
+
 
 export function generateSEOConfig(config: Partial<SEOConfig> = {}): SEOConfig {
   return {

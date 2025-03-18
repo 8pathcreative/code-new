@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 // src/App.tsx
+<<<<<<< HEAD
 import { AppProvider } from './providers/AppProvider';
 import PageLayout from '@/components/Layout/PageLayout';
 import AppRoutes from './routes'; // We'll create this next
@@ -55,6 +56,30 @@ function App() {
       </div>
     </Router>
 >>>>>>> parent of 336a2a1 (d)
+=======
+import { AuthProvider } from '@/contexts/AuthContext';
+import { HelmetProvider } from 'react-helmet-async';
+import { AppProvider } from './providers/AppProviders';
+import { BrowserRouter } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import PageLayout from "@/components/PageLayout";
+import AppRoutes from './routes';
+
+function App() {
+  return (
+    <AuthProvider>
+      <HelmetProvider>
+        <AppProvider>
+          <BrowserRouter>
+            <PageLayout>
+              <AppRoutes />
+              <Toaster position="top-right" />
+            </PageLayout>
+          </BrowserRouter>
+        </AppProvider>
+      </HelmetProvider>
+    </AuthProvider>
+>>>>>>> origin/old-main
   );
 }
 

@@ -39,7 +39,6 @@ export function Contact() {
       <SEO
         title="Contact Us"
         description="Get in touch with the Code Resources team. We'd love to hear from you!"
-        keywords={['contact', 'support', 'feedback', 'help', 'questions']}
       />
 
       <div className="container max-w-6xl py-24">
